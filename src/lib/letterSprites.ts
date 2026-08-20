@@ -7,8 +7,14 @@ const modules = import.meta.glob('../assets/letters/*.png', {
   import: 'default',
 }) as Record<string, string>
 
-// "%" can't live in a URL-safe filename, so it's stored under a plain name.
-const SPECIAL_NAMES: Record<string, string> = { percent: '%' }
+// Characters that can't (or shouldn't) live literally in a URL-safe
+// filename are stored under a plain word name instead.
+const SPECIAL_NAMES: Record<string, string> = {
+  percent: '%',
+  question: '?',
+  exclamation: '!',
+  dollar: '$',
+}
 // Non-letter assets bundled alongside the pack (pack preview thumbnail, etc).
 const EXCLUDED_NAMES = new Set(['magazine-letter-cutouts-ransom-note-cover'])
 
