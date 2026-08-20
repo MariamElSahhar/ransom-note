@@ -1,32 +1,42 @@
-# React + TypeScript + Vite
+# Ransom Note Generator
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Type a message and watch it get spelled out in cut-out letters, collaged onto a torn paper background — like a classic ransom note.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Type directly into the note** — no separate input field, the paper itself is editable
+- **Real cut-out letters** where available (magazine-style clippings), with a randomized CSS-generated fallback for any character that doesn't have image variants yet
+- **Randomized per letter**: font, rotation, size, color, and clip shape are all seeded, so the look is stable while you type but reshuffles on every page load
+- **Custom text cursor** positioned against the actual rendered letters, not a generic font's metrics
+- **Auto-fit**: typing is capped so the note never overflows its paper background
+- **Download as PNG** of the finished note
 
-## React Compiler
+## Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React + TypeScript
+- Vite
+- Tailwind CSS v4
 
-## Expanding the Oxlint configuration
+## Getting started
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```bash
+npm install
+npm run dev
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+## Project structure
+
+- `src/App.tsx` — page shell (title, download button)
+- `src/components/RansomNote.tsx` — the editable note surface, cursor, and text-fit logic
+- `src/components/RansomLetter.tsx` — renders a single letter (image cutout or CSS fallback)
+- `src/lib/letterSprites.ts` — loads and groups letter cutout images from `src/assets/letters/`
+- `src/lib/letterStyle.ts` — generates the fallback CSS letter style for characters with no image
+- `src/lib/random.ts` — seeded PRNG utilities
+
+## Adding more letter variants
+
+Drop a PNG into `src/assets/letters/` named after the character it represents (e.g. `o.png`). Additional variants of the same letter get a numeric suffix (`o-1.png`, `o-2.png`, ...) and are picked at random per occurrence.
+
+## Credits
+
+Letter cutout graphics from [OnlyGFX](https://www.onlygfx.com/) — see `src/assets/letters/licence.txt`.
