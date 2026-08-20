@@ -121,13 +121,14 @@ const RansomNote = forwardRef<HTMLDivElement, RansomNoteProps>(function RansomNo
     <div
       ref={setRefs}
       className="relative p-8 aspect-[1339/1080] w-full overflow-hidden"
-      style={{
-        backgroundImage: `url(${paperBg})`,
-        backgroundSize: '100% 100%',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-      }}
     >
+      <img
+        src={paperBg}
+        alt=""
+        draggable={false}
+        className="absolute inset-0 w-full h-full object-cover pointer-events-none select-none"
+      />
+
       <div
         ref={contentRef}
         className="relative text-center"

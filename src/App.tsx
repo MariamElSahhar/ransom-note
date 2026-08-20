@@ -12,14 +12,18 @@ function App() {
 
   const download = async () => {
     if (!noteRef.current) return
-    const dataUrl = await toPng(noteRef.current, {
-      pixelRatio: 2,
-      filter: (node) => !(node instanceof HTMLTextAreaElement),
-    })
-    const link = document.createElement('a')
-    link.download = 'ransom-note.png'
-    link.href = dataUrl
-    link.click()
+    try {
+      const dataUrl = await toPng(noteRef.current, {
+        pixelRatio: 2,
+        filter: (node) => !(node instanceof HTMLTextAreaElement),
+      })
+      const link = document.createElement('a')
+      link.download = 'ransom-note.png'
+      link.href = dataUrl
+      link.click()
+    } catch (err) {
+      console.error('Failed to export note as PNG', err)
+    }
   }
 
   return (
@@ -42,7 +46,7 @@ function App() {
           <h1
             className="text-5xl select-none"
             style={{
-              fontFamily: "'Myfont', cursive",
+              fontFamily: "'MariamsHandwriting', cursive",
               color: '#ae63bf',
             }}
           >
